@@ -15,7 +15,7 @@ spec:
         volumes:
         - name: db-data
           persistentVolumeClaim:
-            claimName: mongodb-pvc
+            claimName: mongo-pvc
         containers:
         - name: *PODNAME
           image: mongo:latest
