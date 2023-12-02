@@ -48,7 +48,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v4.6.0
       with:
-        images: msevcik/ambulance-wl-webapi
+        images: msevcik/wacdemo-ambulance-wl-webapi
         tags: |
             type=schedule
             type=ref,event=branch
