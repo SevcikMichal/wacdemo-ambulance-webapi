@@ -6,8 +6,10 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	cors "github.com/itsjamie/gin-cors"
 	"github.com/sevcikmichal/ambulance-webapi/api"
 	"github.com/sevcikmichal/ambulance-webapi/internal/ambulance_wl"
 	"github.com/sevcikmichal/ambulance-webapi/internal/db_service"
@@ -27,6 +29,17 @@ func main() {
 	engine := gin.New()
 	engine.Use(gin.Recovery())
 
+	corsConfig := cors.Config{
+		Origins:         "*",
+		Methods:         "GET, PUT, POST, DELETE, PATCH",
+		RequestHeaders:  "Origin, Authorization, Content-Type",
+		ExposedHeaders:  "",
+		MaxAge:          12 * time.Hour,
+		Credentials:     false,
+		ValidateHeaders: false,
+	}
+	engine.Use(cors.Middleware(corsConfig))
+
 	// setup context update  middleware
 	dbService := db_service.NewMongoService[ambulance_wl.Ambulance](db_service.MongoServiceConfig{})
 	defer dbService.Disconnect(context.Background())
@@ -37,6 +50,7 @@ func main() {
 
 	// request routings
 	ambulance_wl.AddRoutes(engine)
+
 	engine.GET("/openapi", api.HandleOpenApi)
 	engine.Run(":" + port)
 }
