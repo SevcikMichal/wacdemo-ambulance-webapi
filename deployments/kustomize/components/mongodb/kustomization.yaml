@@ -21,11 +21,3 @@ secretGenerator:
   literals:
   - username=admin
   - password=admin
-
-patches:
-- path: patches/webapi.deployment.yaml
-  target:
-    group: apps
-    version: v1
-    kind: Deployment
-    name: wacdemo-ambulance-webapi
