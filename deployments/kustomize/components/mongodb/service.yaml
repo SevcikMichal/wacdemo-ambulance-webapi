@@ -9,4 +9,4 @@ spec:
    - name: mongo
      protocol: TCP
      port: 27017
-   targetPort: mongodb-port
+     targetPort: mongodb-port
