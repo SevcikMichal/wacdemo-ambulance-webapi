@@ -53,10 +53,10 @@ spec:
                value: "5"
           resources:
             requests:
-              memory: "16Mi"
+              memory: "160Mi"
               cpu: "0.01"
             limits:
-              memory: "64Mi"
+              memory: "640Mi"
               cpu: "0.1"
         containers:
         - name: wacdemo-ambulance-wl-webapi-container
