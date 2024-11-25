@@ -5,42 +5,42 @@ metadata:
 spec:
   replicas: 1
   selector:
-      matchLabels:
-        pod: *PODNAME
+    matchLabels:
+      pod: *PODNAME
   template:
-      metadata:
-        labels:
-          pod: *PODNAME
-      spec:
-        volumes:
+    metadata:
+      labels:
+        pod: *PODNAME
+    spec:
+      volumes:
+      - name: db-data
+        persistentVolumeClaim:
+          claimName: mongo-pvc
+      containers:
+      - name: *PODNAME
+        image: mongo:latest
+        imagePullPolicy: Always
+        ports:
+        - name: mongodb-port
+          containerPort: 27017
+        volumeMounts:
         - name: db-data
-          persistentVolumeClaim:
-            claimName: mongo-pvc
-        containers:
-        - name: *PODNAME
-          image: mongo:latest
-          imagePullPolicy: Always
-          ports:
-          - name: mongodb-port
-            containerPort: 27017
-          volumeMounts:
-          - name: db-data
-            mountPath: /data/db
-          env:
-          - name: MONGO_INITDB_ROOT_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: mongodb-auth
-                key: username
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongodb-auth
-                key: password
-          resources:
-            requests:
-              memory: "1Gi"
-              cpu: "0.1"
-            limits:
-              memory: "4Gi"
-              cpu: "0.5"
+          mountPath: /data/db
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-auth
+              key: username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-auth
+              key: password
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "0.1"
+          limits:
+            memory: "4Gi"
+            cpu: "0.5"
