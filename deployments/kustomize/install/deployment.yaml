@@ -99,8 +99,8 @@ spec:
         image: swaggerapi/swagger-ui
         imagePullPolicy: Always
         ports:
-      - name: api-ui
-        containerPort: 8081
+        - name: api-ui
+          containerPort: 8081
         env:
           - name: PORT
             value: "8081"
