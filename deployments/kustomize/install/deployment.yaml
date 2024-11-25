@@ -113,9 +113,9 @@ spec:
           - name: DISPLAY_OPERATION_ID
             value: 'true'
         resources:
-            requests:
-                memory: "16M"
-                cpu: "0.01"
-            limits:
-                memory: "64M"
-                cpu: "0.1"
+          requests:
+            memory: "16M"
+            cpu: "0.01"
+          limits:
+            memory: "64M"
+            cpu: "0.1"
